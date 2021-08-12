@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head> 
+<body>
+    <div class="calculator">
+        <div class="calc">
+            <div class="result">
+                <p id="input"></p>
+                <div id="history"></div>
+                <p id="output"></p>
+            </div>
+            <div class="line">
+                <button title="Switch on the calculator" value="0" id = 'calswitch'>ON</button>
+                <button title="Clear calculator screen" value="" id = 'clear'>C</button>
+                <button title="Delete last entered value" value="" id = 'delete'>Del</button>
+                <button title="Restore deleted value" value="" id = 'undo'>Un</button>
+                <button title="Clar all operations/history" value="0" id = 'historyBtn'>CH</button>
+            </div>
+            <div class="line">
+                <button title="Click to enter value" value="8">8</button>
+                <button title="Click to enter value" value="9">9</button>
+                <button title="Click to enter value" value="÷" class="operator">÷</button>
+                <button title="Click to enter value" value="×" class="operator">×</button>
+            </div>
+            <div class="line">
+                <button title="Click to enter value" value="5">5</button>
+                <button title="Click to enter value" value="6">6</button>
+                <button title="Click to enter value" value="7">7</button>
+                <button title="Click to enter value" value="-" class="operator">-</button>
+            </div>
+            <div class="line">
+                <button title="Click to enter value" value="2">2</button>
+                <button title="Click to enter value" value="3">3</button>
+                <button title="Click to enter value" value="4">4</button>
+                <button title="Click to enter value" value="+" class="operator">+</button>
+            </div>
+            <div class="line">
+                <button title="Click to enter value" value="">0</button>
+                <button title="Click to enter value" value="1">1</button>
+                <button title="Click to enter value" value="" class="decimal">.</button>
+                <button title="Calculate" value="=" class="operator equal">=</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+   <!-- <script src="function.js"></script> -->
+</body>
+</html>
