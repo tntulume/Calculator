@@ -7,7 +7,7 @@ const clearBtn = document.getElementById('clear');
 const deleteBtn = document.getElementById('delete');
 const undoBtn = document.getElementById('undo');
 const calswitchBtn = document.getElementById('calswitch');
-const historyView = document.getElementById('history');
+const displayView = document.getElementById('display');
 const historyBtn = document.getElementById('historyBtn');
 
 
@@ -36,21 +36,49 @@ historyBtn.addEventListener('click', () => clearHistory());
 
 function clearHistory(){
     history = [];
-    historyView.textContent = '';
+    // historyView.textContent = '';
 }
 
 function showHistory(){
     let allHistory = '';
-    historyView.textContent = '';
+    // historyView.textContent = '';
     history.forEach((historyValue) => {
         allHistory += "<span>" + historyValue + "<button class = \"remove\" value = " + history.indexOf(historyValue) + " onclick = \"removeThis(this.value)\" >delete</button> </span>";
     })
-    historyView.innerHTML = allHistory;
+    // historyView.innerHTML = allHistory;
 }
 
 function removeThis(indexOfHistory){
+
+    const SEPARATORVIEW = document.getElementById('separator');
+    const HISTORY = document.getElementById("history");
+    
     history.splice(indexOfHistory, 1);
-    showHistory()
+    console.log(indexOfHistory)
+    if(history.length > 0){
+        if(indexOfHistory > 0){
+            
+            let previousIndex = indexOfHistory - 1;
+            postion = previousIndex + 1;
+            SEPARATORVIEW.textContent = postion +'/'+ history.length
+            HISTORY.innerHTML = history[previousIndex] + ' <button class = "remove" onclick = "removeThis(this.value)" value =' +  previousIndex + '><i class="las la-times"></i></button>';
+        }
+        else{
+            if(history.length == 0){
+                SEPARATORVIEW.textContent = '0/'+ history.length
+                HISTORY.innerHTML = 'Empty <button class = "remove" onclick = "removeThis(this.value)" value =' +  0 + '><i class="las la-times"></i></button>';
+            }
+            else{
+                SEPARATORVIEW.textContent = '1/'+ history.length
+                HISTORY.innerHTML = history[0] + ' <button class = "remove" onclick = "removeThis(this.value)" value =' +  0 + '><i class="las la-times"></i></button>';
+
+            }
+        }
+    }else{
+        SEPARATORVIEW.textContent = '0/'+ history.length
+        HISTORY.innerHTML = 'Empty <button class = "remove" onclick = "removeThis(this.value)" value =' +  0 + '><i class="las la-times"></i></button>';
+    }
+    // showHistory()
 
 }
 
@@ -63,7 +91,8 @@ function switchCal(){
         output.textContent = '';
         calculatorDisplay.textContent = '';
         calswitchBtn.textContent = 'ON'
-        historyView.textContent= '';
+        displayView.innerHTML = '';
+        // historyView.textContent= '';
     }
     else{
         // console.log('switching cal on')
@@ -71,7 +100,29 @@ function switchCal(){
         output.textContent = '0';
         calculatorDisplay.textContent = '0';
         calswitchBtn.textContent = 'OFF'
-        showHistory();
+        // showHistory();
+        let history_content = `
+                                <span id = "history">Empty </span>
+                                <div class="navigate">
+                                    <button id = "next" class="freeze"><i class="las la-angle-double-left"></i></button>
+                                    <span id = 'separator'>0/0</span>
+                                    <button id = "prev" class="freeze"><i class="las la-angle-double-right"></i></button>
+                                </div>
+                                `
+        displayView.innerHTML = history_content;
+        let currentIndex = 0;
+
+        const NEXTBTN = document.getElementById("next");
+        
+        const PREVBTN = document.getElementById("prev");
+        const SEPARATORVIEW = document.getElementById('separator');
+        const HISTORY = document.getElementById("history");
+        
+        
+        NEXTBTN.addEventListener('click', () => showNextValue());
+        PREVBTN.addEventListener('click', () => showPrevValue());
+        let postion = 0;
+        let historyTotal = history.length;
     }
    
 }
@@ -165,22 +216,20 @@ function performOperation(firstNumber, secondNumber, operator){
     }
 
     let completeEquation = calculatorDisplay.textContent + '=' + answer;
+    output.textContent = answer;
+    nextOperation = true;
     AddHistory(completeEquation)
 
-    showHistory();
+    const SEPARATORVIEW = document.getElementById('separator');
+    const HISTORY = document.getElementById("history");
 
-    //RE-ASSIGN NEXT OPERATION TO TRUE
-    nextOperation = true;
-    
-    // console.log(answer);
-    output.textContent = answer;
+    let lastIndex = history.length - 1;
+    let position = lastIndex + 1;
+    SEPARATORVIEW.textContent = position + "/" + history.length;
+    HISTORY.innerHTML = history[lastIndex] + '<button class = "remove" onclick = "removeThis(this.value)" value =' +  lastIndex + '><i class="las la-times"></i></button>';
 
 }
-
-
-
-//add event listner to buttons
-inputBtns.forEach((inputBtn) => {
+    inputBtns.forEach((inputBtn) => {
     if(inputBtn.classList.length === 0){
         inputBtn.addEventListener('click', () => sendNumberValue(inputBtn.value));
     }
@@ -283,4 +332,73 @@ function undo(){
     }
 }
 
+// ---------------------------------------------------------------------------------------------
+let currentIndex = 0;
+
+function showNextValue(){
+
+    const SEPARATORVIEW = document.getElementById('separator');
+    const HISTORY = document.getElementById("history");
+
+    historyTotal = history.length;
+    if(historyTotal != 0){
+        let lastIndex = historyTotal - 1;
+        postion = currentIndex + 1
+
+        console.log(currentIndex)
+
+        if(currentIndex <= lastIndex){
+            SEPARATORVIEW.textContent = postion +'/'+ historyTotal
+            HISTORY.innerHTML = history[currentIndex] + ' <button class = "remove" onclick = "removeThis(this.value)" value =' +  currentIndex + '><i class="las la-times"></i></button>';
+            currentIndex++;
+        }else{
+            SEPARATORVIEW.textContent = '1/'+ historyTotal
+            currentIndex = 0
+            HISTORY.innerHTML = history[currentIndex] + ' <button class = "remove" onclick = "removeThis(this.value)" value =' +  currentIndex + '><i class="las la-times"></i></button>';
+            alert('This is the last history value')
+        }
+    }
+    // console.log(HISTORY);
+}
+
+function showPrevValue(){
+
+    const SEPARATORVIEW = document.getElementById('separator');
+    const HISTORY = document.getElementById("history");
+
+    historyTotal = history.length;
+    if(history.length > 0){
+        let shownHistory = document.getElementById('history');
+        // console.log(shownHistory.textContent);
+        let shownHistoryContent = shownHistory.textContent;
+        let historyValue = shownHistoryContent.split(' ')
+        // console.log(historyValue);
+        let actualValue = historyValue[0];
+        // console.log(actualValue)
+        let presentIndex = history.indexOf(actualValue);
+        // console.log(presentIndex);
+        
+        if(presentIndex >= 1){
+            
+            // console.log(presentIndex);
+            // if(presentIndex != 0 ){
+                let previousIndex = presentIndex - 1;
+                postion = previousIndex + 1;
+                SEPARATORVIEW.textContent = postion +'/'+ historyTotal
+                HISTORY.innerHTML = history[previousIndex] + ' <button class = "remove" onclick = "removeThis(this.value)" value =' +  previousIndex + '><i class="las la-times"></i></button>';
+                // console.log(history[previousIndex]);
+                // console.log(previousIndex);
+            }
+            // else{
+            // //     alert('This is the first history value');
+            // }
+            
+        else{
+            let previousIndex = history.length - 1;
+            postion = previousIndex + 1;
+            HISTORY.innerHTML = history[previousIndex] + ' <button class = "remove" onclick = "removeThis(this.value)" value =' +  previousIndex + '><i class="las la-times"></i></button>';
+            SEPARATORVIEW.textContent = postion +'/'+ historyTotal
+        }
+    }
+}
 

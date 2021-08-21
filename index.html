@@ -6,13 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css"/>
 </head> 
 <body>
     <div class="calculator">
         <div class="calc">
             <div class="result">
                 <p id="input"></p>
-                <div id="history"></div>
+                <div id="display">
+                </div>
                 <p id="output"></p>
             </div>
             <div class="line">
@@ -20,7 +22,7 @@
                 <button title="Clear calculator screen" value="" id = 'clear'>C</button>
                 <button title="Delete last entered value" value="" id = 'delete'>Del</button>
                 <button title="Restore deleted value" value="" id = 'undo'>Un</button>
-                <button title="Clar all operations/history" value="0" id = 'historyBtn'>CH</button>
+                <button title="Clear all operations/history" value="0" id = 'historyBtn'>CH</button>
             </div>
             <div class="line">
                 <button title="Click to enter value" value="8">8</button>

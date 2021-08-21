@@ -69,7 +69,7 @@ background-color: aqua;
 #delete{
     background-color: red;
 }
-#history{
+/* #history{
     height: 90%;
     width: 90%;
     padding: .3rem;
@@ -77,7 +77,7 @@ background-color: aqua;
     flex-direction: column;
     overflow: hidden;
     overflow-y: scroll;
-}
+} */
 span{
     display: flex;
     justify-content: space-between  ;
@@ -99,4 +99,61 @@ span{
     width: 2.3rem;
     font-size: 12px;
     border-radius: .2rem;
+}
+/* ------------------------------------------------------------ */
+#display{
+    display: flex;
+    flex-direction: column;
+    /* background-color:rgb(231, 245, 244); */
+    padding: 1rem;
+    width: 10.5rem;
+    color: rgb(255, 255, 255);
+    height: 4rem;
+    /* border: white.1rem solid; */
+    border-radius: .3rem;
+ 
+}
+#display span{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .5rem;
+    
+
+}
+#display span button{
+    border: 0;
+    margin: 0;
+    background: transparent;
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+#display span button i{
+    background: red;
+    padding: .2rem;
+    border-radius: 50%;
+    color: white;
+    font-size: 12px;
+    border: 2px solid white;
+
+}
+.navigate  {
+    display: flex;
+    justify-content: space-around;
+    /* align-items: center; */
+
+}
+.navigate button{
+    border: 0;
+    background: cyan;
+    color: navy;
+    border-radius: .3rem;
+    padding: 0 .6rem;
+}
+#separator{
+    margin-top: .5rem;
+}
+.navigate #next{
+    background: rgb(248, 194, 236);
 }
